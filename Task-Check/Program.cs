@@ -12,7 +12,7 @@ namespace Task_Check
         {
             while (true)
             {
-                Console.Write("hellow world");
+                Console.WriteLine("The time is = " + DateTime.UtcNow);
                 System.Threading.Thread.Sleep(1000 * 60 * 5); // Sleep for 5 minutes
             }
         }
