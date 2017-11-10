@@ -23,14 +23,23 @@ namespace Task_Check
 
                 var mod = Second % 10;
 
+                List<string> LineList = new List<string>();
+
                 string Location = System.Configuration.ConfigurationManager.AppSettings["LogPath"];
                 string Destination = System.Configuration.ConfigurationManager.AppSettings["LogDestination"];
 
                 if (mod == 0)
                 {
-                    using (StreamReader file1 = new StreamReader(Location + ".txt", true))
+                    using (var fs = File.OpenRead(Location + ".txt"))
+                    using (var reader = new StreamReader(fs))
                     {
+                        while (!reader.EndOfStream)
+                        { 
+                            var Line = reader.ReadLine();
+                            LineList.Add(Line);
 
+                            Console.WriteLine(Line);
+                        }
                     }
 
                     using (StreamWriter file2 = new StreamWriter(Destination + ".txt", true))
