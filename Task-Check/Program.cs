@@ -22,9 +22,11 @@ namespace Task_Check
                 var Second = DateTime.UtcNow.Second;
 
                 var mod = Second % 10;
-                int ArrayLength = 0;
 
-                List<string> LineList = new List<string>();                
+                List<string> LineList = new List<string>();
+                int ArrayLength = 0;
+                string[] Commands = { "" };
+                int count = 0;
 
                 string Location = System.Configuration.ConfigurationManager.AppSettings["LogPath"];
                 string Destination = System.Configuration.ConfigurationManager.AppSettings["LogDestination"];
@@ -38,24 +40,19 @@ namespace Task_Check
                         {
                             var Line = reader.ReadLine();
                             LineList.Add(Line);
-                            string[] Commands = LineList.ToArray();
+                            Commands = LineList.ToArray();
                             ArrayLength = Commands.Length;
+                        }
 
-                            for (int i = 0; i < ArrayLength; i++)
+                        for (int i = 0; i < ArrayLength; i++)
+                        {
+                            using (StreamWriter file2 = new StreamWriter(Destination + ".txt", true))
                             {
-                                int count = 0;
-
                                 Console.WriteLine(Commands[count]);
-
                                 count++;
                             }
                         }
                     }
-
-                    //using (StreamWriter file2 = new StreamWriter(Destination + ".txt", true))
-                    //{
-                    //}
-                    
                 }
                 else
                 {
