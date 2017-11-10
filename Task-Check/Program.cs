@@ -46,9 +46,9 @@ namespace Task_Check
 
                         for (int i = 0; i < ArrayLength; i++)
                         {
-                            using (StreamWriter file2 = new StreamWriter(Destination + ".txt", true))
+                            using (StreamWriter Writer = new StreamWriter(Destination + ".txt", true))
                             {
-                                Console.WriteLine(Commands[count]);
+                                Writer.WriteLine(Commands[count]);
                                 count++;
                             }
                         }
