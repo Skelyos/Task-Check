@@ -22,8 +22,9 @@ namespace Task_Check
                 var Second = DateTime.UtcNow.Second;
 
                 var mod = Second % 10;
+                int ArrayLength = 0;
 
-                List<string> LineList = new List<string>();
+                List<string> LineList = new List<string>();                
 
                 string Location = System.Configuration.ConfigurationManager.AppSettings["LogPath"];
                 string Destination = System.Configuration.ConfigurationManager.AppSettings["LogDestination"];
@@ -34,22 +35,31 @@ namespace Task_Check
                     using (var reader = new StreamReader(fs))
                     {
                         while (!reader.EndOfStream)
-                        { 
+                        {
                             var Line = reader.ReadLine();
                             LineList.Add(Line);
+                            string[] Commands = LineList.ToArray();
+                            ArrayLength = Commands.Length;
 
-                            Console.WriteLine(Line);
+                            for (int i = 0; i < ArrayLength; i++)
+                            {
+                                int count = 0;
+
+                                Console.WriteLine(Commands[count]);
+
+                                count++;
+                            }
                         }
                     }
 
-                    using (StreamWriter file2 = new StreamWriter(Destination + ".txt", true))
-                    {
-
-                    }
+                    //using (StreamWriter file2 = new StreamWriter(Destination + ".txt", true))
+                    //{
+                    //}
+                    
                 }
                 else
                 {
-                    Console.WriteLine("The time is = " + Day + "/" + Month + "/" + Year + " @ " + Hour + ":" + Minute + ":" + Second);
+                    Console.WriteLine(Day + "/" + Month + "/" + Year + " @ " + Hour + ":" + Minute + ":" + Second);
                 }
 
 
