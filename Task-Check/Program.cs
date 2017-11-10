@@ -12,8 +12,17 @@ namespace Task_Check
         {
             while (true)
             {
-                Console.WriteLine("The time is = " + DateTime.UtcNow);
-                System.Threading.Thread.Sleep(1000 * 60 * 5); // Sleep for 5 minutes
+                var Day = DateTime.UtcNow.Day;
+                var Month = DateTime.UtcNow.Month;
+                var Year = DateTime.UtcNow.Year;
+
+                var Hour = DateTime.UtcNow.Hour;
+                var Minute = DateTime.UtcNow.Minute;
+                var Second = DateTime.UtcNow.Second;
+
+                Console.WriteLine("The time is = " + Day + "/" + Month + "/" + Year + " @ " + Hour + ":" + Minute + ":" + Second);
+
+                System.Threading.Thread.Sleep(1000 * 1); // Sleep for x time
             }
         }
     }
