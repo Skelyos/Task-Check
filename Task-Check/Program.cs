@@ -25,35 +25,63 @@ namespace Task_Check
 
                 var mod = Second % 30;
 
-                List<string> LineList = new List<string>();
                 int ArrayLength = 0;
+                List<string> LineList = new List<string>();
                 string[] Commands = { "" };
+                List<string> FileCheck = new List<string>();
+                string[] FileCheckArray = { "" };
                 int count = 0;
+
+                bool LineCheck = false;
+                var Line = " ";
 
                 string Location = System.Configuration.ConfigurationManager.AppSettings["LogPath"];
                 string Destination = System.Configuration.ConfigurationManager.AppSettings["LogDestination"];
 
                 if (mod == 0)
                 {
-                    Console.WriteLine("Written to another text file @ " + Day + "/" + Month + "/" + Year + " @ " + Hour + ":" + Minute + ":" + Second);
-
                     using (var fs = File.OpenRead(Location + ".txt"))
                     using (var reader = new StreamReader(fs))
                     {
                         while (!reader.EndOfStream)
                         {
-                            var Line = reader.ReadLine();
+                            Line = reader.ReadLine();
                             LineList.Add(Line);
                             Commands = LineList.ToArray();
+                            FileCheck.Add(Line);
+                            FileCheckArray = FileCheck.ToArray();
                             ArrayLength = Commands.Length;
                         }
 
-                        for (int i = 0; i < ArrayLength; i++)
+                        if (LineCheck == false)
                         {
-                            using (StreamWriter Writer = new StreamWriter(Destination + FullDate + ".txt", true))
+                            for (int i = 0; i < ArrayLength; i++)
                             {
-                                Writer.WriteLine(Commands[count]);
+                                if (Line == " ")
+                                {
+                                    Console.WriteLine("File clear");
+                                    LineCheck = true;
+                                }
+                                else if (Commands[count] == FileCheckArray[count])
+                                {
+                                    Console.WriteLine("File not clear");
+                                    LineCheck = false;
+                                }
                                 count++;
+                            }
+                        }
+
+                        else if (LineCheck == true)
+                        {
+                            Console.WriteLine("Written to another text file @ " + Day + "/" + Month + "/" + Year + " @ " + Hour + ":" + Minute + ":" + Second);
+                            count = 0;
+                            for (int i = 0; i < ArrayLength; i++)
+                            {
+                                using (StreamWriter Writer = new StreamWriter(Destination + FullDate + ".txt", true))
+                                {
+                                    Writer.WriteLine(Commands[count]);
+                                    count++;
+                                }
                             }
                         }
                     }
