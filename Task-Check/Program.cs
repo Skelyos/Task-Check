@@ -33,6 +33,7 @@ namespace Task_Check
                 int count = 0;
 
                 bool LineCheck = false;
+                bool FileExistsCheck = false;
                 var Line = " ";
 
                 string Location = System.Configuration.ConfigurationManager.AppSettings["LogPath"];
@@ -43,6 +44,12 @@ namespace Task_Check
                     using (var fs = File.OpenRead(Location + ".txt"))
                     using (var reader = new StreamReader(fs))
                     {
+                        if (File.Exists(Destination + FullDate + ".txt"))
+                        {
+                            Console.WriteLine("file exists");
+                            FileExistsCheck = true;
+                        }
+
                         while (!reader.EndOfStream)
                         {
                             Line = reader.ReadLine();
@@ -53,7 +60,7 @@ namespace Task_Check
                             ArrayLength = Commands.Length;
                         }
 
-                        if (LineCheck == false)
+                        if (FileExistsCheck == true)
                         {
                             for (int i = 0; i < ArrayLength; i++)
                             {
@@ -71,7 +78,7 @@ namespace Task_Check
                             }
                         }
 
-                        else if (LineCheck == true)
+                        else if (FileExistsCheck == true)
                         {
                             Console.WriteLine("Written to another text file @ " + Day + "/" + Month + "/" + Year + " @ " + Hour + ":" + Minute + ":" + Second);
                             count = 0;
