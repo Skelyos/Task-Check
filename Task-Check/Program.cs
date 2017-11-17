@@ -71,14 +71,19 @@ namespace Task_Check
                                 }
                                 else if (Commands[count] == FileCheckArray[count])
                                 {
-                                    Console.WriteLine("File not clear");
+                                    Console.WriteLine("File not clear, clearing...");
+                                    using (StreamWriter Writer = new StreamWriter(Destination + FullDate + ".txt", true))
+                                    {
+                                        Writer.WriteLine(" ");
+                                        count++;
+                                    }
                                     LineCheck = false;
                                 }
                                 count++;
                             }
                         }
 
-                        else if (FileExistsCheck == true)
+                        else if (LineCheck == true)
                         {
                             Console.WriteLine("Written to another text file @ " + Day + "/" + Month + "/" + Year + " @ " + Hour + ":" + Minute + ":" + Second);
                             count = 0;
